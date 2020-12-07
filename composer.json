@@ -1,0 +1,35 @@
+{
+	"name": "zmcms/website_articles",
+	"description": "Artykuły w serwisach internetowych",
+	"authors": [
+		{
+		"name": "Piotr Szkudlarek",
+		"email": "pszkudlarek@zoltanmultimedia.pl"
+		}
+	],
+	"require": {},
+	
+	"autoload": {
+            "psr-4": {
+                "Zmcms\\WebsiteArticles\\Backend\\Controllers\\":"src/backend/controllers/",
+                "Zmcms\\WebsiteArticles\\Backend\\Db\\":"src/backend/db/",
+				"Zmcms\\WebsiteArticles\\Backend\\Middleware\\":"src/backend/middleware/",
+				"Zmcms\\WebsiteArticles\\Backend\\Routes\\":"src/backend/routes/",
+				"Zmcms\\WebsiteArticles\\Frontend\\Controllers\\":"src/frontend/controllers/",
+				"Zmcms\\WebsiteArticles\\Frontend\\Db\\":"src/frontend/db/",
+				"Zmcms\\WebsiteArticles\\Frontend\\Middleware\\":"src/frontend/middleware/",
+				"Zmcms\\WebsiteArticles\\Frontend\\Routes\\":"src/frontend/routes/",
+				"Zmcms\\WebsiteArticles\\Migrations\\":"src/migrations/",
+				"Zmcms\\WebsiteArticles\\":"src/"
+            },
+            "files": ["src/helpers.php"]
+    	},
+	"extra": {
+    		"laravel": {
+    	    	"providers": [
+            		"Zmcms\\WebsiteArticles\\ZmcmsWebsiteArticlesServiceProvider"
+        		]
+    		}
+	}
+	
+}
