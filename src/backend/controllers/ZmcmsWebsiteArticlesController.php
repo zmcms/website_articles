@@ -11,7 +11,7 @@ class ZmcmsWebsiteArticlesController extends \App\Http\Controllers\Controller
 		$art = (Config('database.prefix')??'').'website_articles';
 
 		$resultset = Q::articles_list($paginate = 20, $order=[$art.'.created_at'=>'desc'], $filter=[]);
-		return view('themes.milekcompl.backend.zmcms_website_articles_panel', compact('data', 'resultset'));
+		return view('themes.'.(Config('zmcms.frontend.theme_name') ?? 'zmcms').'.backend.zmcms_website_articles_panel', compact('data', 'resultset'));
 		return '<pre>'.print_r($resultset, true).'</pre>';
 	}
 	public function articles_save(Request $request){
