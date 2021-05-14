@@ -23,7 +23,9 @@ Route::middleware(['BackendUser'])->group(function () use($prefix){
 	Route::get($prefix.'/articles/create/frm',
 		'Zmcms\WebsiteArticles\Backend\Controllers\ZmcmsWebsiteArticlesController@articles_create_frm')	
 		->name('website_articles');
-		
+	Route::get($prefix.'/zmcms_website_article_delete/{token}/{objslug}',
+		'Zmcms\WebsiteArticles\Backend\Controllers\ZmcmsWebsiteArticlesController@zmcms_website_article_delete')	
+		->name('website_articles');
 		
 });
 

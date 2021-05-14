@@ -259,6 +259,26 @@ class Queries{
 			]);
 		}
 	}
+	public static function article_delete($token, $objslug){
+		$art = (Config('database.prefix')??'').'website_articles';
+		try{
+			DB::beginTransaction();
+			DB::table($art)->where('token', $token)->delete();
+			DB::commit();
+			return json_encode([
+				'result'	=>	'ok',
+				'code'		=>	'ok',
+				'msg' 		=>	___('Usunięto artykuł.'),
+			]);
+		}catch(\Illuminate\Database\QueryException $e){
+			DB::rollBack();
+			return json_encode([
+				'result'	=>	'error',
+				'code'		=>	'ok',
+				'msg' 		=>	___('Nie usunięto artykułu.'),
+			]);
+		}
+	}
 	public static function article_create($data){
 		$art = (Config('database.prefix')??'').'website_articles';
 		$art_names = (Config('database.prefix')??'').'website_articles_names';

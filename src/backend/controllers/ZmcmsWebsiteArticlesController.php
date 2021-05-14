@@ -106,7 +106,18 @@ class ZmcmsWebsiteArticlesController extends \App\Http\Controllers\Controller
 				// 'code'		=>	'ok',
 				// 'msg' 		=>	'<pre>'.print_r($request->all(), true).'</pre>',
 		// ]); 
-		return Q::article_update($data);
+		$result = Q::article_update($data);
+		if(json_decode($result)->result == 'ok'){
+			// $data['data']['old_slug'] 
+			(new \Zmcms\Main\Backend\Controllers\ZmcmsMainController)->route_path_update($data['names']['old_slug'], $data['names']['slug']);
+			return $result;
+		}else{
+			return json_encode([
+				'result'	=>	'false',
+				'code'		=>	'false',
+				'msg' 		=>	'<pre>'.print_r($request->all(), true).'</pre>',
+			]); 
+		}
 	}
 	/**
 	 * FILTROWANIE ARTYKUŁÓW
@@ -156,6 +167,36 @@ class ZmcmsWebsiteArticlesController extends \App\Http\Controllers\Controller
 			]);
 		// return print_r([$token, $langs_id, $page], true);
 	}
+	/**
+	 * USUWANIE ARTYKUŁU
+	 */
+	public function zmcms_website_article_delete($token, $objslug){
+		return $result = Q::article_delete($token, $objslug);
+		return json_encode([
+				'result'	=>	'ok',
+				'code'		=>	'ok',
+				'msg' 		=>	___('Otwarty artykuł ma tylko jedną stronę. Nie można jej usunąć.'),
+			]);
+
+		/**
+		 * /themes/fd/media/the-interior-of-the-1508273_1920.jpg
+		 {	"og_image":null,
+		 	"ilustration":{
+		 		"15":"\/themes\/fd\/media\/store\/wa\/ilustrations\/15\/2021-03-21-to-jest-tytul-artykulu-jakiegos-pierwszego.jpg",
+		 		"30":"\/themes\/fd\/media\/store\/wa\/ilustrations\/30\/2021-03-21-to-jest-tytul-artykulu-jakiegos-pierwszego.jpg",
+		 		"100":"\/themes\/fd\/media\/store\/wa\/ilustrations\/100\/2021-03-21-to-jest-tytul-artykulu-jakiegos-pierwszego.jpg",
+		 		"200":"\/themes\/fd\/media\/store\/wa\/ilustrations\/200\/2021-03-21-to-jest-tytul-artykulu-jakiegos-pierwszego.jpg",
+		 		"300":"\/themes\/fd\/media\/store\/wa\/ilustrations\/300\/2021-03-21-to-jest-tytul-artykulu-jakiegos-pierwszego.jpg",
+		 		"600":"\/themes\/fd\/media\/store\/wa\/ilustrations\/600\/2021-03-21-to-jest-tytul-artykulu-jakiegos-pierwszego.jpg",
+		 		"800":"\/themes\/fd\/media\/store\/wa\/ilustrations\/800\/2021-03-21-to-jest-tytul-artykulu-jakiegos-pierwszego.jpg",
+		 		"1024":"\/themes\/fd\/media\/store\/wa\/ilustrations\/1024\/2021-03-21-to-jest-tytul-artykulu-jakiegos-pierwszego.jpg",
+		 		"1400":"\/themes\/fd\/media\/store\/wa\/ilustrations\/1400\/2021-03-21-to-jest-tytul-artykulu-jakiegos-pierwszego.jpg",
+		 		"1980":"\/themes\/fd\/media\/store\/wa\/ilustrations\/1980\/2021-03-21-to-jest-tytul-artykulu-jakiegos-pierwszego.jpg"},
+		 	"icon":null
+		 }
+		 */
+	}
+
 	/**
 	 * TWORZENIE NOWEGO ARTYKUŁU
 	 */
