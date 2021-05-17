@@ -16,7 +16,11 @@
 		@foreach($data['articles'] as $r)
 			<li>
 				<a href="{{$data['navigation']['data']->link.'/'.$r->slug}}">
-					<img src="{{ (json_decode($r->images_resized, true)['ilustration']['1400']) }}" alt="{{$r->title}}">
+					@if(isset((json_decode($r->images_resized, true)['ilustration'])))
+						<img src="{{ (json_decode($r->images_resized, true)['ilustration']['1400']) }}" alt="{{$r->title}}">
+					@else
+						<img src="{{Config((Config('zmcms.frontend.theme_name') ?? 'zmcms').'.media.placeholder')}}" alt="{{$r->title}}">
+					@endif
 					<h2>{{$r->title}}</h2>
 					<div>{!!$r->intro!!}</div>					
 				</a>
